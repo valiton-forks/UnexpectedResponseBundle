@@ -21,5 +21,12 @@ class UnexpectedResponseListener
         if ($exception instanceof UnexpectedResponseException) {
             $event->setResponse($exception->getResponse());
         }
+
+        if ($exception instanceof \Twig_Error_Runtime) {
+            $exception = $exception->getPrevious();
+            if ($exception instanceof UnexpectedResponseException) {
+                $event->setResponse($exception->getResponse());
+            }
+        }
     }
 }
