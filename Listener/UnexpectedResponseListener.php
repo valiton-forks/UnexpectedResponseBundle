@@ -23,8 +23,7 @@ class UnexpectedResponseListener
         }
 
         // allow unexpected response in twig
-        $class = '\Twig_Error_Runtime';
-        if ($exception instanceof $class) {
+        if (is_a($exception, '\Twig_Error_Runtime')) {
             $exception = $exception->getPrevious();
             if ($exception instanceof UnexpectedResponseException) {
                 $event->setResponse($exception->getResponse());
